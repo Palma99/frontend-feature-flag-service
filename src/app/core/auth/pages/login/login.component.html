@@ -1,0 +1,61 @@
+<form [formGroup]="loginForm" class="login-form" (ngSubmit)="onSubmit()">
+  <div class="tui-form__header">
+		Login
+	</div>
+
+  <div class="tui-form__row">
+
+		<label
+			tuiLabel
+			class="tui-space_bottom-4"
+		>
+			<tui-input formControlName="email" tuiTextfieldSize="s">
+				Email
+				<input tuiTextfieldLegacy type="email" />
+			</tui-input>
+	
+			<tui-error
+				formControlName="email"
+				[error]="[] | tuiFieldError | async"
+			/>
+		</label>
+
+  </div>
+
+
+  <div class="tui-form__row">
+    <tui-input formControlName="password" tuiTextfieldSize="s">
+      Password
+      <input tuiTextfieldLegacy type="password" />
+    </tui-input>
+
+		<tui-error
+			formControlName="password"
+			[error]="[] | tuiFieldError | async"
+		/>
+  </div>
+
+	<div class="tui-form__buttons">
+		<button
+			tuiButton
+			[disabled]="!loginForm.valid"
+			type="submit"
+			class="tui-form__button"
+			appearance="primary"
+			size="m"
+		>
+			Login
+		</button>
+
+		<button
+			tuiButton
+			type="button"
+			class="tui-form__button"
+			appearance="flat"
+			size="m"
+		>
+			Sign up
+		</button>
+	</div>
+
+</form>
