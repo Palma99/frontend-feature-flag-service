@@ -8,9 +8,14 @@
 <div [style.display]="'flex'">
   <aside [style.height]="'calc(100vh - 48px)'" [tuiNavigationAside]="expanded()">
     <header>
-      <button iconStart="@tui.home" tuiAsideItem type="button">
+      <a
+        iconStart="@tui.home"
+        tuiAsideItem
+        routerLink="/dashboard"
+        [routerLinkActiveOptions]="{exact: true}"
+      >
         <span tuiFade>Home</span>
-      </button>
+      </a>
     </header>
 
     <a
@@ -51,17 +56,19 @@
 
   <main tuiNavigationMain [style.display]="'block'">
     <nav tuiNavigationNav [style.position]="'sticky'" [style.height.px]="48">
-      @if (title() !== 'Dashboard') {
-        <a routerLink="/dashboard">
-          <tui-icon icon="@tui.chevron-left" />
-          Back
-        </a>
-        /
+      @for (part of breadcrumbParts(); track part; let i = $index) {
+        <span tuiNavigationLogo>
+          <span routerLink="{{ part.link }}" tuiFade>{{ part.label }}</span>
+        </span>
+
+        @if (i < breadcrumbParts()!.length - 1) {
+          /
+        }
       }
 
-      <span tuiNavigationLogo>
+      <!-- <span tuiNavigationLogo>
         <span tuiFade>{{ title() }}</span>
-      </span>
+      </span> -->
 
       <hr />
       <!-- <tui-tabs tuiFade>
