@@ -1,0 +1,94 @@
+<tui-loader [overlay]="true" [showLoader]="!!projectsResource.isLoading()">
+  <table tuiTable size="m" [style.width.%]="100">
+    <thead>
+      <tr>
+        <th tuiTh>Project</th>
+        <th tuiTh>Role</th>
+        <th tuiTh [style.width.px]="100" [style.text-align]="'center'">
+          Actions
+        </th>
+      </tr>
+    </thead>
+    <tbody tuiTbody>
+      @for (item of projectsResource.value(); track item.id) {
+      <tr>
+        <td tuiTd>
+          <div tuiCell="m">
+            <span tuiTitle>
+              <span tuiStatus>
+                {{ item.name }}
+              </span>
+            </span>
+          </div>
+        </td>
+
+        <td tuiTd>
+          <div tuiCell="m">
+            <span tuiTitle>
+              <span tuiStatus>
+                @if(isOwner(item)) {
+                <tui-badge appearance="success">Owner</tui-badge>
+                } @else {
+                <tui-badge appearance="warning">Member</tui-badge>
+                }
+              </span>
+            </span>
+          </div>
+        </td>
+
+        <td tuiTd [style.text-align]="'center'">
+          <span tuiStatus>
+            <a
+              appearance="action-grayscale"
+              iconStart="@tui.pencil"
+              size="xs"
+              tuiIconButton
+              type="button"
+              routerLink="/dashboard/projects/{{ item.id }}"
+            >
+              Edit
+            </a>
+            <button
+              appearance="action-grayscale"
+              iconStart="@tui.ellipsis"
+              size="xs"
+              tuiIconButton
+              type="button"
+            >
+              More
+            </button>
+          </span>
+        </td>
+      </tr>
+      } @empty {
+        <tr>
+          <td tuiTd colspan="3">
+            <div tuiCell="m">
+              <div tuiTitle class="table-info-cell">
+                @if (projectsResource.error()) {
+                  <div tuiStatus>
+                    <span>
+                      Something went wrong.
+                    </span>
+                    <button
+                      iconStart="@tui.rotate-cw"
+                      tuiButton
+                      appearance="outline-destructive"
+                      type="button"
+                      size="xs"
+                      (click)="projectsResource.reload()"
+                    >
+                      Retry
+                    </button>
+                  </div>
+                } @else {
+                  <span tuiStatus> No projects found </span>
+                }
+              </div>
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</tui-loader>

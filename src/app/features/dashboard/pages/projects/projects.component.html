@@ -1,1 +1,12 @@
-<p>projects works!</p>
+<div class="projects-toolbar">
+  <button
+    tuiButton
+    iconStart="@tui.plus"
+    size="s"
+    (click)="showNewProjectDialog()"
+  >
+    New project
+  </button>
+</div>
+
+<app-project-list />

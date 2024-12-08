@@ -1,0 +1,30 @@
+<form [formGroup]="projectForm" class="new-project-form" (ngSubmit)="submit()">
+  
+  <p class="new-project-form__subtitle">
+    Just a few details to create your new project
+  </p>
+
+  <div class="tui-form__row">
+    <tui-input formControlName="projectName" tuiTextfieldSize="s">
+      Project name
+      <input tuiTextfieldLegacy />
+    </tui-input>
+
+		<tui-error
+			formControlName="projectName"
+			[error]="[] | tuiFieldError | async"
+		/>
+  </div>
+
+  
+
+	<div class="tui-form__buttons">
+    <button
+      [loading]="requestStatus.loading()"
+      tuiButton 
+      iconStart="@tui.plus" size="s" type="submit" [disabled]="!projectForm.valid"
+    >
+      Create
+    </button>
+  </div>
+</form>

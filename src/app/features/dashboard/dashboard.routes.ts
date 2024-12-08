@@ -8,6 +8,14 @@ export const dashboardRoutes: Routes = [
     loadComponent: () => import('../../core/layout/admin-layout/admin-layout.component').then(m => m.AdminLayoutComponent),
     children: [
       {
+        path: 'projects/:id',
+        pathMatch: 'full',
+        loadComponent: () => import('./pages/projects/project-editor/project-editor.component').then(m => m.ProjectEditorComponent), 
+        data: {
+          title: 'Edit project'
+        }
+      },
+      {
         path: 'projects',
         pathMatch: 'full',
         loadComponent: () => import('./pages/projects/projects.component').then(m => m.ProjectsComponent), 
@@ -24,19 +32,4 @@ export const dashboardRoutes: Routes = [
       },
     ]
   },
-
-  // {
-  //   path: 'dashboard',
-  //   loadComponent: () => import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent),
-  //   data: {
-  //     title: 'Dashboard'
-  //   }
-  // },
-  // {
-  //   path: 'projects',
-  //   loadComponent: () => import('./pages/projects/projects.component').then(m => m.ProjectsComponent), 
-  //   data: {
-  //     title: 'Projects'
-  //   }
-  // },
 ];

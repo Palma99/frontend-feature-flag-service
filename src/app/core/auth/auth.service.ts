@@ -18,7 +18,7 @@ export class AuthService {
     localStorage.setItem('token', token);
   }
 
-  private getToken() {
+  public getToken() {
     return localStorage.getItem('token');
   }
 
@@ -29,6 +29,11 @@ export class AuthService {
       this.storeToken(response.token);
       this.router.navigate(['dashboard']);
     });
+  }
+
+  get userId() {
+    const token = this.getToken();
+    return token ? JSON.parse(atob(token.split('.')[1])).userID : null;
   }
 
   isLoggedIn() {
