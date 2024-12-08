@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { ProjectListComponent } from "../../project-list/project-list.component";
 import { TuiButton, tuiDialog } from '@taiga-ui/core';
-import { NewProjectDialogComponent } from '../../new-project-dialog/new-project-dialog.component';
 import { Router } from '@angular/router';
+import { ProjectListComponent } from '../../components/project-list/project-list.component';
+import { NewProjectDialogComponent } from '../../components/new-project-dialog/new-project-dialog.component';
 
 @Component({
   selector: 'app-projects',

@@ -5,10 +5,9 @@ import { TuiAlertService, TuiButton, TuiDialogContext, TuiError } from '@taiga-u
 import { TuiButtonLoading, TuiFieldErrorPipe, tuiValidationErrorsProvider } from '@taiga-ui/kit';
 import { TuiInputModule } from '@taiga-ui/legacy';
 import {injectContext} from '@taiga-ui/polymorpheus';
-import { ProjectsService } from '../projects.service';
-import { catchError, of } from 'rxjs';
-import { useRequestStatus } from '../../../shared/use-request-status';
 import { Router } from '@angular/router';
+import { useRequestStatus } from '../../../../shared/use-request-status';
+import { ProjectsService } from '../../projects.service';
 
 @Component({
   selector: 'app-new-project-dialog',

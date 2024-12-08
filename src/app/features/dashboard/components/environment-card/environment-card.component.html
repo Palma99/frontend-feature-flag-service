@@ -1,0 +1,30 @@
+<div tuiAppearance="neutral" tuiCardMedium class="environment-card">
+  <div class="environment-card__actions">
+    <button
+      appearance="secondary"
+      iconStart="@tui.pencil"
+      size="s"
+      tuiIconButton
+      type="button"
+      [style.border-radius.%]="100"
+    ></button>
+
+    <button
+      tuiHint="Copy public key"
+      tuiHintAppearance="dark"
+      tuiHintDirection="right"
+      appearance="success"
+      iconStart="@tui.clipboard"
+      size="s"
+      tuiIconButton
+      type="button"
+      [style.border-radius.%]="100"
+      (click)="copyPublicKeyToClipboard()"
+    ></button>
+  </div>
+
+  <h2 tuiTitle>
+    {{ environment.name }}
+    <span tuiSubtitle>{{ environment.public_key }}</span>
+  </h2>
+</div>

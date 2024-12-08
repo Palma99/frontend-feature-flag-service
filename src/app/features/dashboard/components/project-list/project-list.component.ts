@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { ProjectsService } from '../projects.service';
 import { rxResource } from '@angular/core/rxjs-interop';
 import {FormsModule} from '@angular/forms';
 import {TuiTable} from '@taiga-ui/addon-table';
@@ -15,9 +14,10 @@ import {
     TuiStatus,
 } from '@taiga-ui/kit';
 import {TuiCell} from '@taiga-ui/layout';
-import { AuthService } from '../../../core/auth/auth.service';
-import { ProjectList } from '../models/ProjectList';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../../../core/auth/auth.service';
+import { ProjectList } from '../../models/ProjectList';
+import { ProjectsService } from '../../projects.service';
 
 @Component({
   selector: 'app-project-list',

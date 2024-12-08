@@ -1,0 +1,8 @@
+.environment-card {
+  &__actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    width: 100%;
+  }
+}

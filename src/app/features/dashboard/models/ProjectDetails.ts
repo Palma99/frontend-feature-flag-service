@@ -1,3 +1,5 @@
+import { Environment } from "./Environment";
+
 export type ProjectDetailsDTO = {
   project: ProjectDetails;
 }
@@ -7,15 +9,11 @@ export type ProjectDetails = {
   name: string;
   owner_id: number;
 
-  environments: {
-    id: number;
-    name: string;
-    project_id: number;
-    public_key: string;
-    flags: null;
-  }[];
+  environments: Environment[];
 
   members: {
     id: number;
+    email: string;
+    nickname: string;
   }[];
 }
