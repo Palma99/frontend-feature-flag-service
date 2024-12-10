@@ -41,6 +41,5 @@ export class LoginComponent {
       email: this.loginForm.value.email ?? '',
       password: this.loginForm.value.password ?? ''
     });
-    console.log(this.loginForm.value, this.loginForm.valid);
   }
 }

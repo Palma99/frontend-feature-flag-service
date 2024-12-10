@@ -1,15 +1,17 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { ProjectsService } from '../../../projects.service';
 import { ActivatedRoute } from '@angular/router';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
-import { TuiAppearance, TuiButton, TuiTitle } from '@taiga-ui/core';
+import { TuiAlertService, TuiAppearance, TuiButton, tuiDialog, TuiTitle } from '@taiga-ui/core';
 import { TuiCardMedium } from '@taiga-ui/layout';
 import { TuiAvatar, TuiBadge } from '@taiga-ui/kit';
 import { ProjectDetails } from '../../../models/ProjectDetails';
 import { EnvironmentCardComponent } from "../../../components/environment-card/environment-card.component";
 import { EnvironmentDrawerService } from '../../../components/environment-drawer/environment-drawer.service';
 import { EnvironmentDrawerComponent } from "../../../components/environment-drawer/environment-drawer.component";
+import { NewProjectDialogComponent } from '../../../components/new-project-dialog/new-project-dialog.component';
+import { NewEnvironmentDialogComponent } from '../../../components/new-environment-dialog/new-environment-dialog.component';
 
 @Component({
   selector: 'app-project-editor',
@@ -24,11 +26,35 @@ import { EnvironmentDrawerComponent } from "../../../components/environment-draw
 export class ProjectEditorComponent {
   private projectsService = inject(ProjectsService)
   private route = inject(ActivatedRoute)
+  private alerts = inject(TuiAlertService)
+
+  private readonly newEnvironmentDialog = tuiDialog(NewEnvironmentDialogComponent, {
+    dismissible: false,
+    label: 'New environment',
+  });
+  
+  showNewEnvironmentDialog() {
+    const projectId = this.projectResource.value()?.id
+
+    if (!projectId) {
+      return
+    }
+
+    this.newEnvironmentDialog({
+      projectId
+    }).subscribe( {
+      next: (data) => {
+        if (data === 1) {
+          this.projectResource.reload()
+          this.alerts.open('Environment created!', {
+            appearance: 'positive',
+          }).subscribe();
+        }
+      },
+    });
+  }
 
   environmentDrawerService = inject(EnvironmentDrawerService)
-
-  constructor() {
-  }
 
   getAvatarInitials(name: string) {
     return (name.charAt(0) + name.charAt(1)).toUpperCase();
@@ -57,5 +83,4 @@ export class ProjectEditorComponent {
     ),
     loader: ( { request: projectId }) => this.projectsService.fetchProjectDetails(projectId as number),
   })
-
 }

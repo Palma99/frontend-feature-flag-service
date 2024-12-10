@@ -7,6 +7,7 @@ import { rxResource } from '@angular/core/rxjs-interop';
 import { ProjectsService } from '../../projects.service';
 import { Environment, EnvironmentDetails } from '../../models/Environment';
 import { ClipboardService } from '../../../../shared/clipboard.service';
+import { EnvironmentService } from '../../environment.service';
 
 @Component({
   selector: 'app-environment-drawer',
@@ -25,12 +26,12 @@ import { ClipboardService } from '../../../../shared/clipboard.service';
 })
 export class EnvironmentDrawerComponent {
   protected environmentDrawerService = inject(EnvironmentDrawerService)
-  private projectService = inject(ProjectsService)
+  private environmentService = inject(EnvironmentService)
   clipboardService = inject(ClipboardService)
 
   environmentResource = rxResource<EnvironmentDetails, number | null>({
     request: this.environmentDrawerService.selectedEnvironmentId,
-    loader: ({ request: environmentId }) => this.projectService.fetchEnvironmentDetails(environmentId)
+    loader: ({ request: environmentId }) => this.environmentService.fetchEnvironmentDetails(environmentId)
   })
 
 }

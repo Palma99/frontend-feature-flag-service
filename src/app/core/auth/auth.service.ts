@@ -36,7 +36,17 @@ export class AuthService {
     return token ? JSON.parse(atob(token.split('.')[1])).userID : null;
   }
 
+  get userNickname() {
+    const token = this.getToken();
+    return token ? JSON.parse(atob(token.split('.')[1])).nickname : null;
+  }
+
   isLoggedIn() {
     return !!this.getToken();
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['login']);
   }
 }

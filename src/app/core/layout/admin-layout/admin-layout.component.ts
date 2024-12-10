@@ -9,15 +9,20 @@ import {
     TuiButton,
     TuiDataList,
     TuiDropdown,
+    TuiLink,
 } from '@taiga-ui/core';
 
 import {
     TuiAvatar,
+    TuiBreadcrumbs,
     TuiFade,
     TuiTabs,
 } from '@taiga-ui/kit';
 import {TuiNavigation} from '@taiga-ui/layout';
 import { filter, map, tap } from 'rxjs';
+import { TuiItem } from '@taiga-ui/cdk/directives/item';
+import { BreadcrumbService } from './breadcrumb.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   imports: [
@@ -33,6 +38,9 @@ import { filter, map, tap } from 'rxjs';
       TuiNavigation,
       TuiTabs,
       RouterOutlet,
+      TuiBreadcrumbs,
+      TuiItem,
+      TuiLink,
     ],
     providers: [],
     selector: 'app-admin-layout',
@@ -41,23 +49,12 @@ import { filter, map, tap } from 'rxjs';
 })
 export class AdminLayoutComponent {
   protected expanded = signal(true);
-  private router = inject(Router);
+  protected breadcrumbService = inject(BreadcrumbService)
+  protected authService = inject(AuthService)
 
-  protected breadcrumbParts = toSignal<{
-    label: string;
-    link: string;
-  }[]>(
-    this.router.events.pipe(
-      filter((event) => event instanceof NavigationEnd),
-      map((event) => {
-        const parts = event.url.split('/')
-        return parts
-          .filter((part) => part !== '')
-          .map((part) => ({
-            label: part[0].toUpperCase() + part.slice(1),
-            link: `/${parts.slice(0, parts.indexOf(part) + 1).join('/')}`,
-          }))
-      }),
-    )
-  );
+  avatarInitials = computed(() => 
+    (this.authService.userNickname[0] + this.authService.userNickname[1]).toUpperCase()
+)
+
+  avatarMenuOpen = signal(false);
 }

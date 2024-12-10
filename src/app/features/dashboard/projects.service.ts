@@ -11,15 +11,6 @@ import { Environment, EnvironmentDetails, EnvironmentDetailsDTO } from './models
 export class ProjectsService {
   private httpClient = inject(HttpClient);
 
-  fetchEnvironmentDetails (id: number | null) {
-    if (id === null) {
-      return of({} as EnvironmentDetails);
-    }
-
-    return this.httpClient.get<EnvironmentDetailsDTO>(`http://localhost:3000/environment/${id}`)
-      .pipe(map((response) => response.environment));
-  }
-
   fetchProjectDetails(id: number): Observable<ProjectDetails> {
     return this.httpClient.get<ProjectDetailsDTO>(`http://localhost:3000/project/${id}`)
       .pipe(map((response) => response.project));

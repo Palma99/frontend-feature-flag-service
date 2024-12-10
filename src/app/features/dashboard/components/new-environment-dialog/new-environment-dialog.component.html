@@ -1,0 +1,29 @@
+<form [formGroup]="environmentForm" class="new-environment-form" (ngSubmit)="submit()">
+  
+  <p class="new-environment-form__subtitle">
+    Just a few details to create your new project
+  </p>
+
+  <div class="tui-form__row">
+    <tui-input formControlName="environmentName" tuiTextfieldSize="s">
+      Environment name
+      <input tuiTextfieldLegacy />
+    </tui-input>
+
+		<tui-error
+			formControlName="environmentName"
+			[error]="[] | tuiFieldError | async"
+		/>
+  </div>
+  
+
+	<div class="tui-form__buttons">
+    <button
+      [loading]="requestStatus.loading()"
+      tuiButton 
+      iconStart="@tui.plus" size="s" type="submit" [disabled]="!environmentForm.valid"
+    >
+      Create
+    </button>
+  </div>
+</form>
