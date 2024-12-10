@@ -1,14 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ProjectCreatedDTO, ProjectListDTO } from './models/ProjectList';
-import { map, Observable } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { ProjectDetails, ProjectDetailsDTO } from './models/ProjectDetails';
+import { Environment, EnvironmentDetails, EnvironmentDetailsDTO } from './models/Environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectsService {
   private httpClient = inject(HttpClient);
+
+  fetchEnvironmentDetails (id: number | null) {
+    if (id === null) {
+      return of({} as EnvironmentDetails);
+    }
+
+    return this.httpClient.get<EnvironmentDetailsDTO>(`http://localhost:3000/environment/${id}`)
+      .pipe(map((response) => response.environment));
+  }
 
   fetchProjectDetails(id: number): Observable<ProjectDetails> {
     return this.httpClient.get<ProjectDetailsDTO>(`http://localhost:3000/project/${id}`)

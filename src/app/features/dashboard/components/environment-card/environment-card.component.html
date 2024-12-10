@@ -7,6 +7,7 @@
       tuiIconButton
       type="button"
       [style.border-radius.%]="100"
+      (click)="openDrawer.emit(environment.id)"
     ></button>
 
     <button
@@ -19,7 +20,7 @@
       tuiIconButton
       type="button"
       [style.border-radius.%]="100"
-      (click)="copyPublicKeyToClipboard()"
+      (click)="clipboardService.copyToClipboard(environment.public_key)"
     ></button>
   </div>
 

@@ -1,7 +1,8 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, output, Output } from '@angular/core';
 import { Environment } from '../../models/Environment';
 import { TuiAppearance, TuiTitle, TuiButton, TuiHint, TuiHintDirective, TuiAlertService } from '@taiga-ui/core';
 import { TuiCardMedium } from '@taiga-ui/layout';
+import { ClipboardService } from '../../../../shared/clipboard.service';
 
 @Component({
   selector: 'app-environment-card',
@@ -19,14 +20,7 @@ import { TuiCardMedium } from '@taiga-ui/layout';
 export class EnvironmentCardComponent {
   @Input() environment!: Environment
 
-  private alerts = inject(TuiAlertService)
+  clipboardService = inject(ClipboardService)
 
-  copyPublicKeyToClipboard() {
-    navigator.clipboard.writeText(this.environment.public_key)
-
-    this.alerts.open('Public key copied to clipboard', {
-      appearance: 'success',
-    }).subscribe();
-  }
-
+  openDrawer = output<number>()
 }

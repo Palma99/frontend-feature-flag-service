@@ -8,12 +8,15 @@ import { TuiCardMedium } from '@taiga-ui/layout';
 import { TuiAvatar, TuiBadge } from '@taiga-ui/kit';
 import { ProjectDetails } from '../../../models/ProjectDetails';
 import { EnvironmentCardComponent } from "../../../components/environment-card/environment-card.component";
+import { EnvironmentDrawerService } from '../../../components/environment-drawer/environment-drawer.service';
+import { EnvironmentDrawerComponent } from "../../../components/environment-drawer/environment-drawer.component";
 
 @Component({
   selector: 'app-project-editor',
   imports: [
     TuiAppearance, TuiCardMedium, TuiTitle, TuiButton, TuiAvatar, TuiBadge,
-    EnvironmentCardComponent
+    EnvironmentCardComponent,
+    EnvironmentDrawerComponent
 ],
   templateUrl: './project-editor.component.html',
   styleUrl: './project-editor.component.scss'
@@ -21,6 +24,8 @@ import { EnvironmentCardComponent } from "../../../components/environment-card/e
 export class ProjectEditorComponent {
   private projectsService = inject(ProjectsService)
   private route = inject(ActivatedRoute)
+
+  environmentDrawerService = inject(EnvironmentDrawerService)
 
   constructor() {
   }

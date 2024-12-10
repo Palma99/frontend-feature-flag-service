@@ -1,0 +1,14 @@
+.public-key__container {
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+
+  code {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding-left: 0.4rem;
+    border-radius: 5px;
+    background-color: var(--tui-background-neutral-2)
+  }
+}

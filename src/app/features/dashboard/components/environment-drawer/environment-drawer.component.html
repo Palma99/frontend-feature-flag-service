@@ -1,0 +1,51 @@
+<tui-drawer *tuiPopup="environmentDrawerService.isDrawerOpen()">
+  <header>
+    <h2 tuiHeader>
+      <div tuiTitle>{{ environmentResource.value()?.name }}</div>
+      <div tuiAccessories>
+        <button
+          appearance="icon"
+          iconStart="@tui.x"
+          tuiIconButton
+          type="button"
+          (click)="environmentDrawerService.closeDrawer()"
+        >
+          Close
+        </button>
+      </div>
+    </h2>
+
+    <div class="public-key__container">
+      Public key:
+      <code>
+        {{ environmentResource.value()?.public_key }}
+
+        <button
+          tuiHint="Copy public key"
+          tuiHintAppearance="dark"
+          tuiHintDirection="right"
+          appearance="action-grayscale"
+          iconStart="@tui.clipboard"
+          size="xs"
+          tuiIconButton
+          type="button"
+          [style.border-radius.%]="100"
+          (click)="clipboardService.copyToClipboard(environmentResource.value()?.public_key ?? '')"
+        ></button>
+
+      </code>
+    </div>
+  </header>
+  <div>
+    <h3>Flags</h3>
+
+    @for (flag of environmentResource.value()?.flags ?? []; track flag.id) {
+      <label tuiCell>
+        <div tuiTitle [style.color]="'var(--tui-text-secondary)'">
+          {{ flag.name }}
+        </div>
+        <input tuiSwitch type="checkbox" [checked]="flag.enabled" />
+      </label>
+    }
+  </div>
+</tui-drawer>

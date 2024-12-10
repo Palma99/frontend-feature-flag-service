@@ -54,10 +54,16 @@
 
   <div class="section__container">
     @for (environment of projectResource.value()?.environments; track environment.id) {
-      <app-environment-card [environment]="environment" />
+      <app-environment-card
+        [environment]="environment"
+        (openDrawer)="environmentDrawerService.openDrawer(environment.id)"
+      />
+
     }
     @empty {
       <h2 tuiTitle>No environments yet</h2>
     }
   </div>
 </div>
+
+<app-environment-drawer />
