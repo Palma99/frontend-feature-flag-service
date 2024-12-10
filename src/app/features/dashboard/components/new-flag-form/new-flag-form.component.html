@@ -1,0 +1,54 @@
+<button
+  tuiButton
+  iconStart="@tui.plus"
+  size="s"
+  type="submit"
+  [disabled]="expanded()"
+  (click)="expanded.set(true)"
+>
+  Create flag
+</button>
+
+<tui-expand [expanded]="expanded()">
+  <ng-template tuiExpandContent>
+    <form
+      [formGroup]="flagForm"
+      (ngSubmit)="submit()"
+    >
+      <div class="tui-form__row" [style.margin-top.px]="10">
+        <tui-input formControlName="flagName" size="s">
+          Flag name
+          <input tuiTextfieldLegacy />
+        </tui-input>
+
+        <tui-error
+          formControlName="flagName"
+          [error]="[] | tuiFieldError | async"
+        />
+      </div>
+
+      <div class="tui-form__buttons">
+        <button
+          tuiButton
+          size="s"
+          type="button"
+          appearance="outline-destructive"
+          (click)="close()"
+          [style.margin-right.px]="10"
+        >
+          Cancel
+        </button>
+
+        <button
+          tuiButton
+          iconStart="@tui.plus"
+          size="s"
+          appearance="primary"
+          type="submit"
+        >
+          Create
+        </button>
+      </div>
+    </form>
+  </ng-template>
+</tui-expand>

@@ -8,19 +8,20 @@ import { ProjectsService } from '../../projects.service';
 import { Environment, EnvironmentDetails } from '../../models/Environment';
 import { ClipboardService } from '../../../../shared/clipboard.service';
 import { EnvironmentService } from '../../environment.service';
+import { NewFlagFormComponent } from "../new-flag-form/new-flag-form.component";
 
 @Component({
   selector: 'app-environment-drawer',
   imports: [
-   	TuiPopup,
-    TuiDrawer, 
+    TuiPopup,
+    TuiDrawer,
     TuiButton,
     TuiDrawer,
     TuiHeader,
-
     TuiCell,
     TuiSwitch,
-  ],
+    NewFlagFormComponent
+],
   templateUrl: './environment-drawer.component.html',
   styleUrl: './environment-drawer.component.scss'
 })
