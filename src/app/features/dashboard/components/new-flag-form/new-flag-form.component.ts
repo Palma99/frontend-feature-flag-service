@@ -25,6 +25,7 @@ import { useRequestStatus } from '../../../../shared/use-request-status';
 export class NewFlagFormComponent {
   projectId = input<number>()
   created = output()
+  disabled = input<boolean>(false)
 
   private flagService = inject(FlagService)
   protected requestStatus = useRequestStatus()

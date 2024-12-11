@@ -3,7 +3,7 @@
   iconStart="@tui.plus"
   size="s"
   type="submit"
-  [disabled]="expanded()"
+  [disabled]="expanded() || disabled()"
   (click)="expanded.set(true)"
 >
   Create flag
@@ -35,6 +35,7 @@
           appearance="outline-destructive"
           (click)="close()"
           [style.margin-right.px]="10"
+          [disabled]="requestStatus.loading()"
         >
           Cancel
         </button>
@@ -45,6 +46,7 @@
           size="s"
           appearance="primary"
           type="submit"
+          [loading]="requestStatus.loading()"
         >
           Create
         </button>

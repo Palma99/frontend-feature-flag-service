@@ -6,8 +6,6 @@ export type Environment = {
   flags: null;
 }
 
-
-
 export type EnvironmentDetailsDTO = {
   environment: EnvironmentDetails;
 }
@@ -22,5 +20,5 @@ export type EnvironmentDetails = {
     name: string;
     project_id: number;
     enabled: boolean;
-  };
+  }[];
 }
