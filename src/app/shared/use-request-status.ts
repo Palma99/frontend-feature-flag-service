@@ -7,7 +7,7 @@ export const useRequestStatus = () => {
   const error = signal<string | null>(null)
 
   const init = () => {
-    loading.set(false)
+    loading.set(true)
     error.set(null)
   }
 

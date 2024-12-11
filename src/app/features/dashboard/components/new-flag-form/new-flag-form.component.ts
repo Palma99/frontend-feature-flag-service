@@ -3,7 +3,7 @@ import { Component, inject, input, Input, output, Output, signal } from '@angula
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { TuiAlertService, TuiButton, TuiError, TuiExpand } from '@taiga-ui/core';
 import { TuiFieldErrorPipe, TuiButtonLoading } from '@taiga-ui/kit';
-import { TuiInputModule } from '@taiga-ui/legacy';
+import { TuiInputModule, TuiTextfieldControllerModule } from '@taiga-ui/legacy';
 import { FlagService } from '../../flag.service';
 import { useRequestStatus } from '../../../../shared/use-request-status';
 
@@ -18,6 +18,7 @@ import { useRequestStatus } from '../../../../shared/use-request-status';
     AsyncPipe,
     TuiFieldErrorPipe,
     TuiButtonLoading,
+    TuiTextfieldControllerModule,
   ],
   templateUrl: './new-flag-form.component.html',
   styleUrl: './new-flag-form.component.scss'

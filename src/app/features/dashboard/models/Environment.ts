@@ -1,3 +1,5 @@
+import { Flag } from "./Flag";
+
 export type Environment = {
   id: number;
   name: string;
@@ -15,10 +17,5 @@ export type EnvironmentDetails = {
   name: string;
   project_id: number;
   public_key: string;
-  flags: {
-    id: number;
-    name: string;
-    project_id: number;
-    enabled: boolean;
-  }[];
+  flags: Flag[];
 }

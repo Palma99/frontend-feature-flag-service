@@ -15,8 +15,11 @@
       [formGroup]="flagForm"
       (ngSubmit)="submit()"
     >
+      <p [style.color]="'var(--tui-text-secondary)'">
+        The flag will be created in all environments, and it will be disabled by default
+      </p>
       <div class="tui-form__row" [style.margin-top.px]="10">
-        <tui-input formControlName="flagName" size="s">
+        <tui-input formControlName="flagName" tuiTextfieldSize="m">
           Flag name
           <input tuiTextfieldLegacy />
         </tui-input>
