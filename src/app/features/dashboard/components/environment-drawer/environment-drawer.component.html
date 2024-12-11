@@ -42,52 +42,13 @@
     <app-new-flag-form
       [projectId]="environmentResource.value()?.project_id"
       (created)="environmentResource.reload()"
-      [disabled]="changesToSave()"
     />
 
-    <div [style.text-align]="'right'">
-
-      @if (changesToSave()) {
-        <button
-          tuiButton
-          iconStart="@tui.x" 
-          size="s"
-          [appearance]="'outline-destructive'"
-          (click)="resetLocalFlags()"
-          [style.margin-right.px]="10"
-        >
-          Cancel changes
-        </button>
-      }
-
-      <button
-        tuiButton
-        iconStart="@tui.save" 
-        size="s"
-        [appearance]="changesToSave() ? 'primary' : 'secondary'"
-        [disabled]="!changesToSave()"
-        (click)="saveChanges()"
-        [loading]="updateFlagsRequestStatus.loading()"
-      >
-        Save changes
-      </button>
-    </div>
-
-    <div [style.margin-top.px]="10">
-      @for (flag of sortedFlags(); track flag.id) {
-        <label tuiCell>
-          <div tuiTitle [style.color]="'var(--tui-text-secondary)'">
-            {{ flag.name }}
-          </div>
-          <input
-            tuiSwitch
-            type="checkbox"
-            [ngModel]="flag.enabled"
-            (ngModelChange)="toggleLocalFlag(flag.id)"
-          />
-        </label>
-      }
-    </div>
+    <app-flag-list
+      [environmentId]="environmentResource.value()?.id"
+      [remoteFlags]="environmentResource.value()?.flags ?? []"
+      (saved)="environmentResource.reload()"
+    />
 
   </div>
 </tui-drawer>
