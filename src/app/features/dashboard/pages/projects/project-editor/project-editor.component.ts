@@ -1,7 +1,7 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { ProjectsService } from '../../../projects.service';
 import { ActivatedRoute } from '@angular/router';
-import { rxResource, toSignal } from '@angular/core/rxjs-interop';
+import { rxResource } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { TuiAlertService, TuiAppearance, TuiButton, tuiDialog, TuiTitle } from '@taiga-ui/core';
 import { TuiCardMedium } from '@taiga-ui/layout';
@@ -10,15 +10,17 @@ import { ProjectDetails } from '../../../models/ProjectDetails';
 import { EnvironmentCardComponent } from "../../../components/environment-card/environment-card.component";
 import { EnvironmentDrawerService } from '../../../components/environment-drawer/environment-drawer.service';
 import { EnvironmentDrawerComponent } from "../../../components/environment-drawer/environment-drawer.component";
-import { NewProjectDialogComponent } from '../../../components/new-project-dialog/new-project-dialog.component';
 import { NewEnvironmentDialogComponent } from '../../../components/new-environment-dialog/new-environment-dialog.component';
+import { NewFlagFormComponent } from "../../../components/new-flag-form/new-flag-form.component";
+import { AuthService } from '../../../../../core/auth/auth.service';
 
 @Component({
   selector: 'app-project-editor',
   imports: [
     TuiAppearance, TuiCardMedium, TuiTitle, TuiButton, TuiAvatar, TuiBadge,
     EnvironmentCardComponent,
-    EnvironmentDrawerComponent
+    EnvironmentDrawerComponent,
+    NewFlagFormComponent
 ],
   templateUrl: './project-editor.component.html',
   styleUrl: './project-editor.component.scss'
@@ -27,12 +29,27 @@ export class ProjectEditorComponent {
   private projectsService = inject(ProjectsService)
   private route = inject(ActivatedRoute)
   private alerts = inject(TuiAlertService)
+  private authService = inject(AuthService)
 
   private readonly newEnvironmentDialog = tuiDialog(NewEnvironmentDialogComponent, {
     dismissible: false,
     label: 'New environment',
   });
+
+  selectedProjectId = signal<number>(-1)
+
+  constructor() {
+    this.route.params.pipe(
+      map((params) => params['id']),
+    ).subscribe((projectId) => {
+      this.selectedProjectId.set(Number(projectId)) 
+    })
+  }
   
+  canCreateNewEnvironment() {
+    return this.authService.userId === this.projectResource.value()?.owner_id
+  }
+
   showNewEnvironmentDialog() {
     const projectId = this.projectResource.value()?.id
 
@@ -73,14 +90,10 @@ export class ProjectEditorComponent {
       isOwner: i === 0,
       ...member
     }));
-  }) 
+  })
 
   projectResource = rxResource<ProjectDetails, number>({
-    request: toSignal(
-      this.route.params.pipe(
-        map((params) => params['id']),
-      )
-    ),
-    loader: ( { request: projectId }) => this.projectsService.fetchProjectDetails(projectId as number),
+    request: this.selectedProjectId,
+    loader: ( { request: projectId }) => this.projectsService.fetchProjectDetails(projectId),
   })
 }

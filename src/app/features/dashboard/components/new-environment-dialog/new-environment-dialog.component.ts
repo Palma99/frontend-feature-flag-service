@@ -31,7 +31,6 @@ export class NewEnvironmentDialogComponent {
   }>>();
   private readonly alerts = inject(TuiAlertService);
 
-  private router = inject(Router)
   private environmentService = inject(EnvironmentService)
 
   protected requestStatus = useRequestStatus()
@@ -56,18 +55,17 @@ export class NewEnvironmentDialogComponent {
     this.environmentService.createEnvironment(this.context.data.projectId, environmentName)
       .subscribe({
         next: () => {
+          this.requestStatus.loading.set(false)
           this.context.completeWith(1);
         },
         error: (error) => {
+          this.requestStatus.loading.set(false)
           this.requestStatus.error.set(error.message)
 
           this.alerts.open('Something went wrong. Please try again', {
             appearance: 'negative',
           }).subscribe();
         },
-        complete: () => {
-          this.requestStatus.loading.set(false)
-        }
       });
   }
 }

@@ -1,33 +1,22 @@
 
 @if (!projectResource.error()) {
   <h1>{{ projectResource.value()?.name }}</h1>
-
-  <div class="section">
-    <div class="section__title">Members</div>
-
-    <div class="section__container" [style.align-items]="'center'">
-      @for (member of showableMembers(); track member.id) {
-      <div tuiAppearance="neutral" tuiCardMedium class="member-card">
-        <tui-avatar>
-          {{ getAvatarInitials(member.nickname) }}
-        </tui-avatar>
-
-        <h2 tuiTitle>
-          <div class="member-card__name">
-            {{ member.nickname }}
-            @if (member.isOwner) {
-            <tui-badge appearance="primary">Owner</tui-badge>
-            }
-          </div>
-          <span tuiSubtitle>{{ member.email }}</span>
-        </h2>
-      </div>
-      } @if (showableMembers().length < (projectResource.value()?.members ??
-      []).length) {
-      <tui-avatar>
-        +{{ projectResource.value()!.members.length - showableMembers().length }}
-      </tui-avatar>
-      }
+  <div class="section" [style.margin-top.px]="16">
+    <div class="section__title">Flags</div>
+    
+    <div class="section__toolbar">
+      <app-new-flag-form
+        [projectId]="selectedProjectId()"
+      />
+      <button
+        appearance="secondary"
+        iconStart="@tui.pencil"
+        size="s"
+        tuiButton
+        type="button"
+      >
+        Handle flags
+      </button>
     </div>
   </div>
 
@@ -42,6 +31,7 @@
         tuiButton
         type="button"
         (click)="showNewEnvironmentDialog()"
+        [disabled]="!canCreateNewEnvironment()"    
       >
         New environment
       </button>
@@ -55,6 +45,35 @@
         />
       } @empty {
         <h2 tuiTitle>No environments yet</h2>
+      }
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section__title">Members</div>
+
+    <div class="section__container" [style.align-items]="'center'">
+      @for (member of showableMembers(); track member.id) {
+        <div tuiAppearance="neutral" tuiCardMedium class="member-card">
+          <tui-avatar>
+            {{ getAvatarInitials(member.nickname) }}
+          </tui-avatar>
+
+          <h2 tuiTitle>
+            <div class="member-card__name">
+              {{ member.nickname }}
+              @if (member.isOwner) {
+              <tui-badge appearance="primary">Owner</tui-badge>
+              }
+            </div>
+            <span tuiSubtitle>{{ member.email }}</span>
+          </h2>
+        </div>
+      } @if (showableMembers().length < (projectResource.value()?.members ??
+      []).length) {
+      <tui-avatar>
+        +{{ projectResource.value()!.members.length - showableMembers().length }}
+      </tui-avatar>
       }
     </div>
   </div>
