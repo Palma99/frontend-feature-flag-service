@@ -6,6 +6,7 @@ import { TuiFieldErrorPipe, TuiButtonLoading } from '@taiga-ui/kit';
 import { TuiInputModule, TuiTextfieldControllerModule } from '@taiga-ui/legacy';
 import { FlagService } from '../../flag.service';
 import { useRequestStatus } from '../../../../shared/use-request-status';
+import { ProjectEditorService } from '../../pages/projects/project-editor/project-editor.service';
 
 @Component({
   selector: 'app-new-flag-form',
@@ -24,13 +25,14 @@ import { useRequestStatus } from '../../../../shared/use-request-status';
   styleUrl: './new-flag-form.component.scss'
 })
 export class NewFlagFormComponent {
-  projectId = input<number>()
   created = output()
   disabled = input<boolean>(false)
 
   private flagService = inject(FlagService)
   protected requestStatus = useRequestStatus()
   private alerts = inject(TuiAlertService)
+
+  private projectEditorService = inject(ProjectEditorService)
 
   expanded = signal(false)
 
@@ -46,13 +48,14 @@ export class NewFlagFormComponent {
   }
 
   submit() {
-    if (!this.flagForm.valid || this.projectId === null || this.projectId() === undefined) {
+    if (!this.flagForm.valid
+      || !this.projectEditorService.selectedProjectId()) {
       return;
     }
 
     const flagName = this.flagForm.value.flagName!;
 
-    this.flagService.createFlag(this.projectId()!, flagName)
+    this.flagService.createFlag(this.projectEditorService.selectedProjectId()!, flagName)
       .subscribe({
         next: () => {
           this.alerts.open('Flag created!', {

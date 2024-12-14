@@ -1,0 +1,47 @@
+<div>
+  <label tuiCell>
+    <div tuiTitle [style.color]="'var(--tui-text-secondary)'">
+      {{ flag()?.name }}
+    </div>
+
+  <button
+    tuiButton
+    tuiIconButton
+    iconStart="@tui.ellipsis-vertical"
+    type="button"
+    [tuiDropdown]="dropdown"
+    [(tuiDropdownOpen)]="menuOpen"
+    [loading]="!!loading()"
+    [disabled]="disabled()" 
+  >
+    <ng-template #dropdown>
+      <tui-data-list [style.min-width.px]="100">
+        <tui-opt-group>
+          <!-- <button
+            tuiCell
+            tuiButton
+            type="button"
+            iconStart="@tui.pencil"
+            appearance="action"
+            (click)="handleAction('edit')"
+          >
+            Edit
+          </button> -->
+
+          <button
+            tuiCell
+            tuiButton
+            type="button"
+            iconStart="@tui.trash"
+            appearance="action-destructive"
+            (click)="handleAction('delete')"
+          >
+            Delete
+          </button>
+        </tui-opt-group>
+      </tui-data-list>
+    </ng-template>
+  </button>
+
+  </label>
+</div>

@@ -1,0 +1,10 @@
+<div [style.margin-top.px]="10">
+  @for (flag of flagDrawerService.projectFlags(); track flag.id) {
+    <app-flag-list-item
+      [flag]="flag"
+      [loading]="loadingActionId() === flag.id"
+      [disabled]="loadingActionId() !== null && loadingActionId() !== flag.id"
+      (deleteFlag)="confirmDeleteFlag($event)"
+    />
+  }
+</div>

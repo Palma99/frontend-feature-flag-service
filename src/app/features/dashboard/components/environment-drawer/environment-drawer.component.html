@@ -40,7 +40,6 @@
     <h3>Flags</h3>
 
     <app-new-flag-form
-      [projectId]="environmentResource.value()?.project_id"
       (created)="environmentResource.reload()"
     />
 

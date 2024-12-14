@@ -10,9 +10,13 @@ export class FlagService {
 
   private httpClient = inject(HttpClient)
 
-  getProjectFlags(projectId: number) {
+  deleteFlag(flagId: number) {
+    return this.httpClient.delete(`http://localhost:3000/flag/${flagId}`);
+  }
+
+  fetchProjectFlags(projectId: number) {
     return this.httpClient.get<{
-      projectFlags: Omit<Flag, 'enabled'>[]
+      projectFlags: Flag[]
     }>(`http://localhost:3000/flag/project/${projectId}`).pipe(
       map(({ projectFlags }) => projectFlags),
     );

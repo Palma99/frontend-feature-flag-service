@@ -5,15 +5,14 @@
     <div class="section__title">Flags</div>
     
     <div class="section__toolbar">
-      <app-new-flag-form
-        [projectId]="selectedProjectId()"
-      />
+      <app-new-flag-form />
       <button
         appearance="secondary"
         iconStart="@tui.pencil"
         size="s"
         tuiButton
         type="button"
+        (click)="flagDrawerService.openDrawer()"
       >
         Handle flags
       </button>
@@ -79,6 +78,7 @@
   </div>
 
   <app-environment-drawer />
+  <app-flags-drawer />
 } @else {
   <h2>Project not found</h2>
   <p>The project you are looking for does not exist, or you don't have access to it</p>

@@ -1,0 +1,28 @@
+<tui-drawer *tuiPopup="flagDrawerService.isDrawerOpen()">
+  <header>
+    <h2 tuiHeader>
+      <div tuiTitle>Manage project flags</div>
+      <div tuiAccessories>
+        <button
+          appearance="icon"
+          iconStart="@tui.x"
+          tuiIconButton
+          type="button"
+          (click)="flagDrawerService.closeDrawer()"
+        >
+          Close
+        </button>
+      </div>
+    </h2>
+  </header>
+  <div>
+    <h3>Flags</h3>
+
+    <app-new-flag-form
+      (created)="flagDrawerService.fetchProjectFlags()"
+    />
+
+    <app-project-flags-list />
+
+  </div>
+</tui-drawer>

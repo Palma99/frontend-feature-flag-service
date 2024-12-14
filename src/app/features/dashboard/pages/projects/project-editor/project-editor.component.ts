@@ -13,6 +13,9 @@ import { EnvironmentDrawerComponent } from "../../../components/environment-draw
 import { NewEnvironmentDialogComponent } from '../../../components/new-environment-dialog/new-environment-dialog.component';
 import { NewFlagFormComponent } from "../../../components/new-flag-form/new-flag-form.component";
 import { AuthService } from '../../../../../core/auth/auth.service';
+import { ProjectEditorService } from './project-editor.service';
+import { FlagDrawerService } from '../../../components/flags-drawer/flags-drawer.service';
+import { FlagsDrawerComponent } from "../../../components/flags-drawer/flags-drawer.component";
 
 @Component({
   selector: 'app-project-editor',
@@ -20,7 +23,8 @@ import { AuthService } from '../../../../../core/auth/auth.service';
     TuiAppearance, TuiCardMedium, TuiTitle, TuiButton, TuiAvatar, TuiBadge,
     EnvironmentCardComponent,
     EnvironmentDrawerComponent,
-    NewFlagFormComponent
+    NewFlagFormComponent,
+    FlagsDrawerComponent
 ],
   templateUrl: './project-editor.component.html',
   styleUrl: './project-editor.component.scss'
@@ -31,18 +35,21 @@ export class ProjectEditorComponent {
   private alerts = inject(TuiAlertService)
   private authService = inject(AuthService)
 
+  private projectEditorService = inject(ProjectEditorService)
+
+  environmentDrawerService = inject(EnvironmentDrawerService)
+  flagDrawerService = inject(FlagDrawerService)
+
   private readonly newEnvironmentDialog = tuiDialog(NewEnvironmentDialogComponent, {
     dismissible: false,
     label: 'New environment',
   });
 
-  selectedProjectId = signal<number>(-1)
-
   constructor() {
     this.route.params.pipe(
       map((params) => params['id']),
     ).subscribe((projectId) => {
-      this.selectedProjectId.set(Number(projectId)) 
+      this.projectEditorService.selectedProjectId.set(Number(projectId)) 
     })
   }
   
@@ -71,7 +78,6 @@ export class ProjectEditorComponent {
     });
   }
 
-  environmentDrawerService = inject(EnvironmentDrawerService)
 
   getAvatarInitials(name: string) {
     return (name.charAt(0) + name.charAt(1)).toUpperCase();
@@ -93,7 +99,7 @@ export class ProjectEditorComponent {
   })
 
   projectResource = rxResource<ProjectDetails, number>({
-    request: this.selectedProjectId,
+    request: this.projectEditorService.selectedProjectId,
     loader: ( { request: projectId }) => this.projectsService.fetchProjectDetails(projectId),
   })
 }
