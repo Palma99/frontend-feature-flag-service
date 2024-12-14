@@ -34,20 +34,33 @@
         ></button>
 
       </code>
+
+
     </div>
   </header>
-  <div>
-    <h3>Flags</h3>
 
+  <div>
     <app-new-flag-form
       (created)="environmentResource.reload()"
     />
 
-    <app-flag-list
-      [environmentId]="environmentResource.value()?.id"
-      [remoteFlags]="environmentResource.value()?.flags ?? []"
-      (saved)="environmentResource.reload()"
-    />
+    <hr style="margin: 30px 0" />
+
+    <div>
+      <app-test-payload 
+        [environmentPublicKey]="environmentResource.value()?.public_key" 
+      />
+    </div>
+
+    <hr style="margin: 30px 0" />
+
+    <div [style]="{ 'margin-top': '30px' }">
+      <app-flag-list
+        [environmentId]="environmentResource.value()?.id"
+        [remoteFlags]="environmentResource.value()?.flags ?? []"
+        (saved)="environmentResource.reload()"
+      />
+    </div>
 
   </div>
 </tui-drawer>

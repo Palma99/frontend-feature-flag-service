@@ -1,0 +1,41 @@
+<button
+  tuiButton
+  iconStart="@tui.braces"
+  size="s"
+  type="submit"
+  (click)="toggleExpanded()"
+>
+  Test payload
+</button>
+
+<tui-expand [expanded]="expanded()" [style.padding-top.px]="10">
+  <ng-template tuiExpandContent>
+    <form
+      [formGroup]="testPayloadForm"
+      (submit)="getPayload()"
+    >
+      <tui-input tuiTextfieldSize="m" formControlName="publicKey">
+        Public key
+        <input tuiTextfieldLegacy />
+      </tui-input>
+      <button
+        tuiButton
+        size="s"
+        type="submit"
+        [disabled]="!testPayloadForm.valid"
+        [style.margin-top.px]="10"
+        appearance="primary"
+        [loading]="requestStatus.loading()"
+      >
+        Test
+      </button>
+    </form>
+
+    <div class="payload-container">
+      <code>
+        {{ payload() }}
+      </code>
+    </div>
+
+  </ng-template>
+</tui-expand>

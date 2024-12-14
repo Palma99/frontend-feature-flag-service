@@ -1,14 +1,15 @@
-.public-key__container {
+.payload-container {
   font-size: 0.875rem;
   display: flex;
   align-items: center;
 
   code {
-    display: flex;
     align-items: center;
-    height: min-content;
+    min-height: 100px;
+    width: 100%;
     gap: 0.3rem;
-    padding-left: 0.4rem;
+    margin-top: 10px;
+    padding: 0.5rem 0.6rem;
     border-radius: 5px;
     background-color: var(--tui-background-neutral-2)
   }

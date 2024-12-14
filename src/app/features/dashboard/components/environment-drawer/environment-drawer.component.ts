@@ -10,6 +10,7 @@ import { EnvironmentService } from '../../environment.service';
 import { NewFlagFormComponent } from "../new-flag-form/new-flag-form.component";
 import { FormsModule } from '@angular/forms';
 import { FlagListComponent } from "./flag-list/flag-list.component";
+import { TestPayloadComponent } from "./test-payload/test-payload.component";
 
 @Component({
   selector: 'app-environment-drawer',
@@ -21,7 +22,8 @@ import { FlagListComponent } from "./flag-list/flag-list.component";
     TuiHeader,
     FormsModule,
     NewFlagFormComponent,
-    FlagListComponent
+    FlagListComponent,
+    TestPayloadComponent
 ],
   templateUrl: './environment-drawer.component.html',
   styleUrl: './environment-drawer.component.scss'

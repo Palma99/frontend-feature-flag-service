@@ -10,6 +10,10 @@ export class FlagService {
 
   private httpClient = inject(HttpClient)
 
+  getEnvironmentFlagPayload(publicKey: string) {
+    return this.httpClient.get(`http://localhost:3000/public/v1/flags?public_key=${publicKey}`);
+  }
+
   deleteFlag(flagId: number) {
     return this.httpClient.delete(`http://localhost:3000/flag/${flagId}`);
   }
