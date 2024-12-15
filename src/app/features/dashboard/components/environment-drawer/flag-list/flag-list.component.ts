@@ -36,9 +36,7 @@ export class FlagListComponent {
   updateFlagsRequestStatus = useRequestStatus()
 
   localModel = linkedSignal(this.remoteFlags); 
-
   sortedFlags = computed(() => this.localModel().sort((a, b) => a.name.localeCompare(b.name)) ?? [])
-
   toggleLocalFlag(flagId: number) {
     this.localModel.update((localEnv) => {
       return localEnv.map((flag) => {

@@ -35,6 +35,7 @@
             iconStart="@tui.trash"
             appearance="action-destructive"
             (click)="handleAction('delete')"
+            [disabled]="!userProjectPermissionsService.canDeleteFlag()"
           >
             Delete
           </button>

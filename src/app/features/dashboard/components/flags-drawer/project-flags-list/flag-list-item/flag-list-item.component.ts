@@ -1,9 +1,10 @@
-import { Component, input, output, signal } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { Flag } from '../../../../models/Flag';
 import { FormsModule } from '@angular/forms';
 import { TuiDropdown, TuiButton, TuiDataList, TuiIcon } from '@taiga-ui/core';
 import { TuiCell } from '@taiga-ui/layout';
 import { TuiButtonLoading } from '@taiga-ui/kit';
+import { ProjectPermissionsService } from '../../../../project-permissions.service';
 
 @Component({
   selector: 'app-flag-list-item',
@@ -27,6 +28,8 @@ export class FlagListItemComponent {
   deleteFlag = output<number>()
 
   menuOpen = signal(false)
+
+  userProjectPermissionsService = inject(ProjectPermissionsService)
 
   handleAction(action: 'edit' | 'delete') {
     const flagId = this.flag()?.id

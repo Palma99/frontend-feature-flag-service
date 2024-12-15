@@ -16,6 +16,7 @@ import { AuthService } from '../../../../../core/auth/auth.service';
 import { ProjectEditorService } from './project-editor.service';
 import { FlagDrawerService } from '../../../components/flags-drawer/flags-drawer.service';
 import { FlagsDrawerComponent } from "../../../components/flags-drawer/flags-drawer.component";
+import { ProjectPermissionsService } from '../../../project-permissions.service';
 
 @Component({
   selector: 'app-project-editor',
@@ -34,6 +35,8 @@ export class ProjectEditorComponent {
   private route = inject(ActivatedRoute)
   private alerts = inject(TuiAlertService)
   private authService = inject(AuthService)
+  
+  userProjectPermissionsService = inject(ProjectPermissionsService)
 
   private projectEditorService = inject(ProjectEditorService)
 
@@ -50,13 +53,10 @@ export class ProjectEditorComponent {
       map((params) => params['id']),
     ).subscribe((projectId) => {
       this.projectEditorService.selectedProjectId.set(Number(projectId)) 
+      this.userProjectPermissionsService.fetchUserProjectPermissions(Number(projectId))
     })
   }
   
-  canCreateNewEnvironment() {
-    return this.authService.userId === this.projectResource.value()?.owner_id
-  }
-
   showNewEnvironmentDialog() {
     const projectId = this.projectResource.value()?.id
 
