@@ -3,6 +3,8 @@ import { inject, Injectable } from '@angular/core';
 import { LoginUserDTO } from './models/LoginUserDTO';
 import { TokenResponseDTO } from './models/TokenResponseDTO';
 import { Router } from '@angular/router';
+import { SignupDTO } from './models/SignupDTO';
+import { TuiAlertService } from '@taiga-ui/core';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +14,8 @@ export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
 
+  private alert = inject(TuiAlertService); 
+
   constructor() { }
 
   private storeToken(token: string) {
@@ -20,6 +24,22 @@ export class AuthService {
 
   public getToken() {
     return localStorage.getItem('token');
+  }
+
+  signup(signupUserDTO: SignupDTO) {
+    return this.http.post<TokenResponseDTO>('http://localhost:3000/auth/register',
+      signupUserDTO
+    ).subscribe({
+      next: () => {
+        this.router.navigate(['login']);
+      },
+      error: ({error}) => {
+        const message = error.error
+        this.alert.open(message, {
+          appearance: 'negative', 
+        }).subscribe()
+      }
+    });
   }
 
   login(loginUserDTO: LoginUserDTO) {

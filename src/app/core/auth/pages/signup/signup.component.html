@@ -1,6 +1,6 @@
-<form [formGroup]="loginForm" class="login-form" (ngSubmit)="onSubmit()">
+<form [formGroup]="signupForm" class="signup-form" (ngSubmit)="onSubmit()">
   <div class="tui-form__header">
-		Login
+		Signup
 	</div>
 
   <div class="tui-form__row">
@@ -22,6 +22,25 @@
 
   </div>
 
+  <div class="tui-form__row">
+
+		<label
+			tuiLabel
+			class="tui-space_bottom-4"
+		>
+			<tui-input formControlName="nickname" tuiTextfieldSize="s">
+				Nickname
+				<input tuiTextfieldLegacy type="text" />
+			</tui-input>
+	
+			<tui-error
+				formControlName="nickname"
+				[error]="[] | tuiFieldError | async"
+			/>
+		</label>
+
+  </div>
+
 
   <div class="tui-form__row">
     <tui-input formControlName="password" tuiTextfieldSize="s">
@@ -35,16 +54,29 @@
 		/>
   </div>
 
+
+  <div class="tui-form__row">
+    <tui-input formControlName="confirmPassword" tuiTextfieldSize="s">
+      Confirm password
+      <input tuiTextfieldLegacy type="password" />
+    </tui-input>
+
+		<tui-error
+			formControlName="confirmPassword"
+			[error]="[] | tuiFieldError | async"
+		/>
+  </div>
+
 	<div class="tui-form__buttons">
 		<button
 			tuiButton
-			[disabled]="!loginForm.valid"
+			[disabled]="!signupForm.valid"
 			type="submit"
 			class="tui-form__button"
 			appearance="primary"
 			size="m"
 		>
-			Login
+			Register
 		</button>
 
 		<button
@@ -53,9 +85,9 @@
 			class="tui-form__button"
 			appearance="flat"
 			size="m"
-			(click)="gotoSignup()"
+      (click)="gotoLogin()"
 		>
-			Sign up
+			Sign In
 		</button>
 	</div>
 

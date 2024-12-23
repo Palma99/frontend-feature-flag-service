@@ -5,6 +5,7 @@ import { TuiButton, TuiError, TuiLink } from '@taiga-ui/core';
 import { TuiInputModule } from '@taiga-ui/legacy';
 import { TuiFieldErrorPipe, tuiValidationErrorsProvider } from '@taiga-ui/kit'; 
 import { AuthService } from '../../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +35,13 @@ export class LoginComponent {
     ]),
   });
 
+  private router = inject(Router);
+
   private authService = inject(AuthService);
+
+  gotoSignup() {
+    this.router.navigate(['signup']); 
+  } 
 
   onSubmit() {
     this.authService.login({

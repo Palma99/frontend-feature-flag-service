@@ -1,0 +1,9 @@
+.signup-form {
+  margin: 0 auto;
+  width: 50%;
+
+  & .tui-form__buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+}

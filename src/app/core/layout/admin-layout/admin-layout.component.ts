@@ -19,7 +19,6 @@ import {
     TuiTabs,
 } from '@taiga-ui/kit';
 import {TuiNavigation} from '@taiga-ui/layout';
-import { filter, map, tap } from 'rxjs';
 import { TuiItem } from '@taiga-ui/cdk/directives/item';
 import { BreadcrumbService } from './breadcrumb.service';
 import { AuthService } from '../../auth/auth.service';
