@@ -56,6 +56,7 @@
 
     <div [style]="{ 'margin-top': '30px' }">
       <app-flag-list
+        #child
         [environmentId]="environmentResource.value()?.id"
         [remoteFlags]="environmentResource.value()?.flags ?? []"
         (saved)="environmentResource.reload()"
@@ -65,13 +66,6 @@
   </div>
 
   <footer>
-      <button
-          size="m"
-          tuiButton
-          type="button"
-          [style.margin-inline-end]="'auto'"
-      >
-          Tertiary action
-      </button>
+    <ng-container *ngTemplateOutlet="child.saveActions()"></ng-container>
   </footer>
 </tui-drawer>

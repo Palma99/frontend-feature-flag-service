@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, linkedSignal, output } from '@angular/core';
+import { Component, computed, inject, input, linkedSignal, output, TemplateRef, ViewChild, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TuiButton, TuiAlertService } from '@taiga-ui/core';
 import { TuiButtonLoading, TuiSwitch } from '@taiga-ui/kit';
@@ -23,6 +23,8 @@ import { EnvironmentDrawerService } from '../environment-drawer.service';
 })
 export class FlagListComponent {
   
+  saveActions = viewChild.required<TemplateRef<any>>('saveActions')
+
   remoteFlags = input<Flag[]>([])
   environmentId = input<number>()
   saved = output()

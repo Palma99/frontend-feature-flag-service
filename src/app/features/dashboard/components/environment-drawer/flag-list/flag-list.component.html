@@ -1,4 +1,4 @@
-<div [style.text-align]="'right'">
+<ng-template #saveActions>
   @if (changesToSave()) {
     <button
       tuiButton
@@ -23,7 +23,7 @@
   >
     Save changes
   </button>
-</div>
+</ng-template>
 
 <div [style.margin-top.px]="10">
   @for (flag of sortedFlags(); track flag.id) {

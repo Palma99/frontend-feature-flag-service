@@ -11,6 +11,7 @@ import { NewFlagFormComponent } from "../new-flag-form/new-flag-form.component";
 import { FormsModule } from '@angular/forms';
 import { FlagListComponent } from "./flag-list/flag-list.component";
 import { TestPayloadComponent } from "./test-payload/test-payload.component";
+import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
   selector: 'app-environment-drawer',
@@ -23,7 +24,8 @@ import { TestPayloadComponent } from "./test-payload/test-payload.component";
     FormsModule,
     NewFlagFormComponent,
     FlagListComponent,
-    TestPayloadComponent
+    TestPayloadComponent,
+    NgTemplateOutlet,
 ],
   templateUrl: './environment-drawer.component.html',
   styleUrl: './environment-drawer.component.scss'
@@ -31,6 +33,8 @@ import { TestPayloadComponent } from "./test-payload/test-payload.component";
 export class EnvironmentDrawerComponent {
   protected environmentDrawerService = inject(EnvironmentDrawerService)
   private environmentService = inject(EnvironmentService)
+
+
 
   clipboardService = inject(ClipboardService)
 
