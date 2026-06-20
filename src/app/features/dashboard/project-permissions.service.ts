@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { map } from 'rxjs';
+import { API_BASE_URL } from '../../core/http/api.config';
 
 type UserProjectPermissionsDTO = {
   permissions: string[]; 
@@ -15,7 +16,7 @@ export class ProjectPermissionsService {
   private userPermissions = signal<string[]>([]);
 
   fetchUserProjectPermissions(projectId: number) {
-    return this.httpClient.get<UserProjectPermissionsDTO>(`http://localhost:3000/project/${projectId}/permissions`)
+    return this.httpClient.get<UserProjectPermissionsDTO>(`${API_BASE_URL}/project/${projectId}/permissions`)
       .pipe(map((response) => response.permissions))
       .subscribe((permissions) => {
         this.userPermissions.set(permissions);

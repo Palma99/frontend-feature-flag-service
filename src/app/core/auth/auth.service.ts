@@ -5,6 +5,7 @@ import { TokenResponseDTO } from './models/TokenResponseDTO';
 import { Router } from '@angular/router';
 import { SignupDTO } from './models/SignupDTO';
 import { TuiAlertService } from '@taiga-ui/core';
+import { API_BASE_URL } from '../http/api.config';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,7 @@ export class AuthService {
   }
 
   signup(signupUserDTO: SignupDTO) {
-    return this.http.post<TokenResponseDTO>('http://localhost:3000/auth/register',
+    return this.http.post<TokenResponseDTO>(`${API_BASE_URL}/auth/register`,
       signupUserDTO
     ).subscribe({
       next: () => {
@@ -43,7 +44,7 @@ export class AuthService {
   }
 
   login(loginUserDTO: LoginUserDTO) {
-    return this.http.post<TokenResponseDTO>('http://localhost:3000/auth/login',
+    return this.http.post<TokenResponseDTO>(`${API_BASE_URL}/auth/login`,
       loginUserDTO
     ).subscribe((response) => {
       this.storeToken(response.token);
